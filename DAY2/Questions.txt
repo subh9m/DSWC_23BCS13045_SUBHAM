@@ -1,0 +1,28 @@
+Coding Problem 1: The "EcoSmart" Home Hub Controller
+
+Scenario Background:
+You are the lead architect for EcoSmart, a company that manufactures a central hub to manage various smart home devices. Your hub needs to control lights, security cameras, and smart locks.
+Some of these devices are wired directly into the house's electricity, while others rely on internal batteries. Every night at 2:00 AM, the central hub runs a "System Diagnostics Routine." During this routine, the hub must trigger every device to perform its primary action to ensure it is working, and it must also check the battery levels of any device that relies on battery power, triggering a recharge alert if the battery is dangerously low.
+Implementation Constraints & Requirements:
+1. Inheritance Structure (The "Is-A" Relationship):
+Create an abstract base class called SmartDevice. It must contain:
+A protected String deviceId.
+A protected String deviceName.
+A constructor to initialize these fields.
+An abstract method public abstract void runDiagnostic().
+Create three concrete classes that extends SmartDevice:
+SmartLight
+SmartCamera
+SmartLock
+2. Interface Definition (The "Can-Do" Behavior):
+Create an interface called BatteryOperated. It must contain:
+int getBatteryLevel()
+void triggerRechargeAlert()
+The SmartLight is hardwired into the ceiling. It does not use batteries.
+The SmartCamera and SmartLock are wireless. You must explicitly make these two classes implements BatteryOperated. (Assume you can pass a battery level into their constructors for testing purposes).
+
+3. Polymorphism & The Hub Manager:
+Create a class called HomeHub.
+Write a method with the exact signature: public void executeNightlyRoutine(SmartDevice[] devices).
+The Polymorphism Constraint: Inside this method, you must iterate through the array. For every device, you must call its polymorphic runDiagnostic() method.
+However, if the device in the loop happens to be BatteryOperated, you must also check its battery level. If the battery is strictly less than 20%, you must call triggerRechargeAlert(). You must achieve this using safe type-checking (instanceof) and downcasting.
